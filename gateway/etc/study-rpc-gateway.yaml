@@ -1,0 +1,20 @@
+Name: study-rpc-gateway
+Mode: test
+Host: 0.0.0.0
+Port: 8888
+Timeout: 180000
+Upstreams:
+  - Grpc:
+      Etcd:
+        Hosts:
+          - 127.0.0.1:2379
+        Key: study.rpc
+      Timeout: 180000
+#      ProtoSets:
+#        - study.pb
+    Mappings:
+      - Method: get
+        Path: /test
+        RpcPath: study.study/hello
+
+
