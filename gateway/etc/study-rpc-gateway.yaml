@@ -18,7 +18,7 @@ Upstreams:
         RpcPath: study.study/hello
       - Method: get
         Path: /userInfo
-        RpcPath: study.study/getUserInfo
+        RpcPath: study.study/userInfo
 
 
 Prometheus:
