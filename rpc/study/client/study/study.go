@@ -13,11 +13,14 @@ import (
 )
 
 type (
-	HelloRequest  = study.HelloRequest
-	HelloResponse = study.HelloResponse
+	HelloRequest     = study.HelloRequest
+	HelloResponse    = study.HelloResponse
+	UserInfoRequest  = study.UserInfoRequest
+	UserInfoResponse = study.UserInfoResponse
 
 	Study interface {
 		Hello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
+		UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
 	}
 
 	defaultStudy struct {
@@ -34,4 +37,9 @@ func NewStudy(cli zrpc.Client) Study {
 func (m *defaultStudy) Hello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
 	client := study.NewStudyClient(m.cli.Conn())
 	return client.Hello(ctx, in, opts...)
+}
+
+func (m *defaultStudy) UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error) {
+	client := study.NewStudyClient(m.cli.Conn())
+	return client.UserInfo(ctx, in, opts...)
 }

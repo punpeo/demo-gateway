@@ -26,3 +26,8 @@ func (s *StudyServer) Hello(ctx context.Context, in *study.HelloRequest) (*study
 	l := studylogic.NewHelloLogic(ctx, s.svcCtx)
 	return l.Hello(in)
 }
+
+func (s *StudyServer) UserInfo(ctx context.Context, in *study.UserInfoRequest) (*study.UserInfoResponse, error) {
+	l := studylogic.NewUserInfoLogic(ctx, s.svcCtx)
+	return l.UserInfo(in)
+}

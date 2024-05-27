@@ -10,11 +10,38 @@ Upstreams:
           - 127.0.0.1:2379
         Key: study.rpc
       Timeout: 180000
-#      ProtoSets:
-#        - study.pb
+    #      ProtoSets:
+    #        - study.pb
     Mappings:
       - Method: get
         Path: /test
         RpcPath: study.study/hello
+      - Method: get
+        Path: /userInfo
+        RpcPath: study.study/getUserInfo
 
 
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9090
+  Path: /metrics
+#解析security_key
+Safe:
+  Key: "7bondQEYV6SVkVQ0Y"
+  Iv: "QcjWYaaR"
+SafeList:
+  - Key: "7bondQEYV6SVkVQ0Y"
+    Iv: "QcjWYaaR"
+  - Key: "7bondQEYV6SVkVQ0Y"
+    Iv: "QcjWYaaR"
+#解析php sign
+SignKey: "x73Ywtw8GG7z0imq"
+SignKeyList:
+  - "x73Ywtw8GG7z0imq"
+  - "x73Ywtw8GG7z0imq"
+
+Telemetry:
+  Name: test-study-rpc
+  Endpoint: http://172.16.64.41:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
