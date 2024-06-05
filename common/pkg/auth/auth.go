@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	xerr2 "github.com/punpeo/punpeo-lib/rest/xerr"
 	"github.com/spf13/cast"
-	xerr2 "study/toolbox/rest/xerr"
 	"time"
 
-	commonTypes "study/common/types"
+	commonTypes "demo-gateway/common/types"
 )
 
 // 获取账号数据权限信息

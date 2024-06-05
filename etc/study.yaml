@@ -1,0 +1,15 @@
+Name: study.rpc
+#Mode: test
+ListenOn: 0.0.0.0:8080
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: study.rpc
+
+DshMysql:
+  Dsn: root:123456@tcp(127.0.0.1:3306)/dushuhui?charset=utf8mb4&parseTime=True&loc=Local
+  TablePrefix:
+  Tracing: false
+  MaxIdle: 50
+  MaxOpen: 500
+  ConnMaxIdleTime: 3600

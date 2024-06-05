@@ -34,7 +34,6 @@ func (l *UserInfoLogic) UserInfo(in *study.UserInfoRequest) (*study.UserInfoResp
 	DshUserWeixinModel := model.DshUserWeixin{}
 	userInfo, err := DshUserWeixinModel.GetInfo(l.svcCtx.DshDb, l.ctx, in.Id)
 	if err != nil {
-
 		logx.Error(err)
 		return nil, err
 	}

@@ -25,3 +25,10 @@ goctl api go -api api/study/study.api -dir api/study --style=goZero
 require (
 github.com/zeromicro/go-zero v1.5.3
 )
+\\\
+etcd服务启动
+rpc服务启动
+go run rpc/study/study.go -f etc/study.yaml
+网关服务启动
+go run gateway/main.go -f etc/study-rpc-gateway.yaml
+\\\

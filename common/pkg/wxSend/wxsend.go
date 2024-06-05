@@ -1,9 +1,9 @@
 package wxSend
 
 import (
+	errorx "github.com/punpeo/punpeo-lib/rest/jerror"
 	"github.com/wxpusher/wxpusher-sdk-go"
 	"github.com/wxpusher/wxpusher-sdk-go/model"
-	"study/common/logic/errorx"
 )
 
 type SendMsg struct {
