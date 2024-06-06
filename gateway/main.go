@@ -14,8 +14,8 @@ func main() {
 	flag.Parse()
 	var c gateway.GatewayConf
 	logx.DisableStat()
-	conf.MustLoad(*configFile, &c) //加载配置文件, 并解析到c中
-	gw := gateway.MustNewServer(&c)
+	conf.MustLoad(*configFile, &c)  //加载配置文件, 并解析到c中
+	gw := gateway.MustNewServer(&c) //yaml文件配置插件，否则默认[jzAuth]插件
 	loadPlugins(gw)
 	defer gw.Stop()
 	gw.Start()
@@ -24,7 +24,7 @@ func main() {
 
 // loadPlugins 加载插件
 func loadPlugins(gw *gateway.Server) {
-	gw.Register(plugins.NewPluginJzAuth(gw.Config))
+	//gw.Register(plugins.NewPluginJzAuth(gw.Config))
 	gw.Register(plugins.NewPluginEmpty())
 	gw.Register(plugins.NewPluginHls())
 	gw.Register(plugins.NewPluginUriDispatch(gw.Config))

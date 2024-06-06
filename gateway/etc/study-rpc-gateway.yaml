@@ -21,13 +21,23 @@ Upstreams:
         Path: /userInfo
         RpcPath: study.study/userInfo
         AuthCheck: false
+    #需要开启的插件
+    Plugins:
+      - "empty"
+#      - "jzAuth"
 
 AccessControlRpc:
   Etcd:
     Hosts:
-      - 172.16.32.16:2379
+      - 127.0.0.1:2379
     Key: access-control-rpc
   Timeout: 180000
+
+
+Upstream:
+  Plugins:
+    - "empty"
+
 
 Prometheus:
   Host: 0.0.0.0

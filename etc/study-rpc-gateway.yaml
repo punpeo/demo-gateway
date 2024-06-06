@@ -21,13 +21,15 @@ Upstreams:
         Path: /userInfo
         RpcPath: study.study/userInfo
         AuthCheck: false
+    Plugins:
+      - "empty"
 
-#AccessControlRpc:
-#  Etcd:
-#    Hosts:
-#      - 172.16.32.16:2379
-#    Key: access-control-rpc
-#  Timeout: 180000
+AccessControlRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: access-control-rpc
+  Timeout: 180000
 
 Prometheus:
   Host: 0.0.0.0

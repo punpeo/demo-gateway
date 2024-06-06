@@ -29,8 +29,9 @@ type (
 		//jz-gateway 添加 http.Request 拦截的异常捕获
 		processHeader func(http.Header, *http.Request) []string
 		dialer        func(conf zrpc.RpcClientConf) zrpc.Client
-		Config        *GatewayConf
-		plugin        *PluginManager
+		/*new*/
+		Config *GatewayConf
+		plugin *PluginManager
 	}
 
 	// Option defines the method to customize Server.
@@ -42,8 +43,9 @@ func MustNewServer(c *GatewayConf, opts ...Option) *Server {
 	svr := &Server{
 		upstreams: c.Upstreams,
 		Server:    rest.MustNewServer(c.RestConf),
-		Config:    c,
-		plugin:    NewPluginManager(),
+		/*new*/
+		Config: c,
+		plugin: NewPluginManager(),
 	}
 	for _, opt := range opts {
 		opt(svr)
@@ -53,12 +55,14 @@ func MustNewServer(c *GatewayConf, opts ...Option) *Server {
 }
 
 // Register 注册插件
+/*new*/
 func (s *Server) Register(p Plugin) {
 	s.plugin.Register(p)
 }
 
 // Start starts the gateway server.
 func (s *Server) Start() {
+	/*new*/
 	LoadRouteMap(s.Config)
 	logx.Must(s.build())
 	s.Server.Start()
@@ -104,7 +108,7 @@ func (s *Server) build() error {
 				route := rest.Route{
 					Method:  m.HttpMethod,
 					Path:    m.HttpPath,
-					Handler: s.buildHandler(source, resolver, cli, m.RpcPath, false),
+					Handler: s.buildHandler(source, resolver, cli, m.RpcPath, false), /*new*/
 				}
 
 				// 设置中间件
@@ -120,7 +124,7 @@ func (s *Server) build() error {
 
 		for _, m := range up.Mappings {
 			// 加载路由对应插件
-			s.plugin.LoadRouteMapping(&up, &m)
+			s.plugin.LoadRouteMapping(&up, &m) /*new*/
 
 			if _, ok := methodSet[m.RpcPath]; !ok {
 				cancel(fmt.Errorf("%s: rpc method %s not found", up.Name, m.RpcPath))
@@ -136,12 +140,12 @@ func (s *Server) build() error {
 			route := rest.Route{
 				Method:  strings.ToUpper(m.Method),
 				Path:    m.Path,
-				Handler: s.buildHandler(source, resolver, cli, m.RpcPath, origName),
+				Handler: s.buildHandler(source, resolver, cli, m.RpcPath, origName), /*new*/
 			}
 
 			// 设置中间件
-			route = s.plugin.WrapMiddleware(&route)
-			writer.Write(route)
+			route = s.plugin.WrapMiddleware(&route) /*new*/
+			writer.Write(route)                     /*new*/
 		}
 	}, func(pipe <-chan rest.Route, cancel func(error)) {
 		for route := range pipe {
@@ -162,8 +166,8 @@ func (s *Server) buildHandler(source grpcurl.DescriptorSource, resolver jsonpb.A
 		w.Header().Set(httpx.ContentType, httpx.JsonContentType)
 
 		// 设置RPC事件处理器
-		// handler := internal.NewEventHandler(w, resolver)
-		handler := s.plugin.GetRpcHandler(w, r, resolver, origName)
+		//handler := internal.NewEventHandler(w, resolver) //返回格式未做处理
+		handler := s.plugin.GetRpcHandler(w, r, resolver, origName) //处理返回格式
 
 		if err := grpcurl.InvokeRPC(r.Context(), source, cli.Conn(), rpcPath, s.prepareMetadata(r.Header, r),
 			handler, parser.Next); err != nil {

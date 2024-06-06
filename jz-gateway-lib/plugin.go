@@ -77,15 +77,13 @@ func (pm *PluginManager) RouteKey(method, httpPath string) string {
 func (pm *PluginManager) LoadRouteMapping(up *Upstream, rm *RouteMapping) {
 	// 如果设置了插件，则用插件
 	plugins := rm.Plugins
-
 	// 如果未设置插件，则用默认插件
 	if len(rm.Plugins) == 0 && len(up.Plugins) == 0 {
 		//默认插件 PluginJzAuth
-		plugins = pluginDefault
+		plugins = pluginDefault //[jzAuth]
 	} else if len(rm.Plugins) == 0 {
 		plugins = up.Plugins
 	}
-
 	k := pm.RouteKey(rm.Method, rm.Path)
 	if strings.Contains(rm.Path, ":") {
 		logx.Must(errors.New(fmt.Sprintf("路由配置有误，不允许在uri配置变量参数 ： %s ", rm.Path)))
