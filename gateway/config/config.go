@@ -3,7 +3,6 @@ package config
 import (
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
-	"gitlab.jianzhikeji.com/jz-backend/go-lib/utils/jzcrypto"
 )
 
 type (

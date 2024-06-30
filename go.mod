@@ -21,7 +21,6 @@ require (
 	github.com/wxpusher/wxpusher-sdk-go v1.0.3
 	github.com/zeromicro/go-queue v1.1.8
 	github.com/zeromicro/go-zero v1.5.3
-	gitlab.jianzhikeji.com/jz-backend/go-lib v1.1.4
 	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63
 	google.golang.org/genproto/googleapis/api v0.0.0-20230525234035-dd9d682886f9
 	google.golang.org/grpc v1.57.0
